@@ -1,53 +1,32 @@
-import { Client } from '@notionhq/client'
 import { Router } from 'itty-router'
-
-const NOTION_API = 'https://api.notion.com/v1'
-const NOTION_DB = '7d773a91d3614c28a6292d2f8cc919cf'
-
-const notion = new Client({
-  auth: NOTION_TOKEN,
-})
+import { TableRoute } from '../src/router/table'
+import { BlocksRoute } from '../src/router/blocks'
 
 const router = Router()
 
-// API Requests
-const fetchDatabase = async () => {
-  const response = await notion.databases.query({
-    database_id: NOTION_DB,
-    filter: {
-      property: 'Status',
-      select: {
-        equals: 'Published',
-      },
-    },
-    headers: {},
-  })
+router.get('/database', TableRoute)
+router.get('/blocks/:id', BlocksRoute)
 
-  return response.results
+// Hanlder to cache fetch data
+const handleRequest = async event => {
+  const request = event.request
+  const cacheUrl = new URL(request.url)
+  const cache = caches.default
+  const cacheKey = new Request(cacheUrl.toString(), request)
+
+  let response = await cache.match(cacheKey)
+
+  if (!response) {
+    response = await router.handle(event.request)
+    response = new Response(JSON.stringify(response), response)
+    response.headers.set('Cache-Control', 'max-age=600')
+    response.headers.set('Content-Type', 'application/json')
+
+    event.waitUntil(cache.put(cacheKey, response.clone()))
+  }
+
+  return response
 }
-
-// Router
-const databaseRoute = async () => {
-  const response = await fetchDatabase()
-
-  return new Response(JSON.stringify(response), {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-}
-
-// Hanlder
-const handleRequest = event => {
-  // const request = event.request
-  // const cacheUrl = new URL(request.url)
-  // const cache = caches.default
-
-  return router.handle(event.request)
-}
-
-// Routes
-router.get('/database', databaseRoute)
 
 addEventListener('fetch', event => {
   return event.respondWith(handleRequest(event))

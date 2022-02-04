@@ -1,5 +1,9 @@
+const path = require('path')
+
 module.exports = {
   target: 'webworker',
-  entry: './src/index.js',
-  // externals: [{ 'cross-fetch': 'fetch' }],
+  entry: path.resolve(__dirname, './src/index.js'),
+  resolve: {
+    extensions: ['.js', '.ts'],
+  },
 }

@@ -1,10 +1,11 @@
 name = "cf-notion-worker"
 type = "webpack"
 webpack_config = "webpack.config.js"
-
 account_id = "bdf98396791787c8083597e478acd516"
-
 workers_dev = true
-route = ""
-zone_id = ""
 compatibility_date = "2022-01-25"
+
+[env.production]
+workers_dev = false
+route = "https://worker.alekspetrov.com/*"
+zone_id = "a69833b312105822037c5c51269c3db7"
