@@ -8,7 +8,10 @@ const getPage = async slug => {
   const page = results.find(post => {
     const { Name } = post.properties
     const postTitle = Name.title[0].plain_text
-    const postSlug = slugify(postTitle).toLowerCase()
+    const postSlug = slugify(postTitle, {
+      remove: /[:+~*.()'"!@]/g,
+      lower: true,
+    }).toLowerCase()
 
     return postSlug === slug
   })
