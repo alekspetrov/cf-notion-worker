@@ -4,8 +4,10 @@ import { BlocksRoute } from '../src/router/blocks'
 
 const router = Router()
 
-router.get('/database', TableRoute)
-router.get('/blocks/:id', BlocksRoute)
+router
+  .get('/database', TableRoute)
+  .get('/blocks/:id', BlocksRoute)
+  .get('*', () => new Response('Not found', { status: 404 }))
 
 // Hanlder to cache fetch data
 const handleRequest = async event => {
