@@ -21,11 +21,13 @@ const getPage = async slug => {
   // --
 
   // get page props
-  const { Name, Description } = page.properties
+  const { Name, Description, Tags } = page.properties
+
   const pageData = {
     title: Name.title[0].plain_text,
     description: Description.rich_text[0].plain_text,
     date: page.properties['Crated at'].created_time,
+    tags: Tags.multi_select,
   }
 
   const blocks = await fetchBlocks(page.id)
