@@ -21,7 +21,7 @@ const handleRequest = async event => {
   if (!response) {
     response = await router.handle(event.request)
     response = new Response(JSON.stringify(response), response)
-    response.headers.set('Cache-Control', 'max-age=600')
+    response.headers.set('Cache-Control', 'max-age=86400')
     response.headers.set('Content-Type', 'application/json')
 
     event.waitUntil(cache.put(cacheKey, response.clone()))
