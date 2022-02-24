@@ -26,7 +26,7 @@ const getPage = async slug => {
   const pageData = {
     title: Name.title[0].plain_text,
     description: Description.rich_text[0].plain_text,
-    date: page.properties['Crated at'].created_time,
+    date: page.properties['Created at'].created_time,
     tags: Tags.multi_select,
   }
 
