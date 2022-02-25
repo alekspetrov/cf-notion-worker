@@ -1,12 +1,13 @@
 import { Router } from 'itty-router'
-import { TableRoute } from '../src/router/table'
-import { BlocksRoute } from '../src/router/blocks'
+import { getPages, getPage } from '../src/router/pages'
+import { getEmails } from '../src/router/emails'
 
 const router = Router()
 
 router
-  .get('/database', TableRoute)
-  .get('/blocks/:id', BlocksRoute)
+  .get('/pages', getPages)
+  .get('/pages/:id', getPage)
+  .get('/emails', getEmails)
   .get('*', () => new Response('Not found', { status: 404 }))
 
 // Hanlder to cache fetch data
