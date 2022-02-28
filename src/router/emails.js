@@ -7,8 +7,9 @@ const getEmails = async () => {
 const addEmail = async request => {
   const jsonBody = JSON.stringify(await request.json())
   const body = JSON.parse(jsonBody)
+  const res = await putEmail(body.email)
 
-  return await putEmail(body.email)
+  return res
 }
 
 export { getEmails, addEmail }
