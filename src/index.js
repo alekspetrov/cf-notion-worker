@@ -14,8 +14,6 @@ router
 // Hanlder to cache fetch data
 const handleRequest = async event => {
   const { request } = event
-  // const contentType = request.headers.get('content-type') || ''
-
   if (request.method === 'POST') {
     let response = await router.handle(request)
     response = new Response(JSON.stringify(response), response)
