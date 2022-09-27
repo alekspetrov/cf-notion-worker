@@ -1,5 +1,5 @@
 const fetchEmails = () => {
-  console.log('FetchEmails')
+  console.log('FetchEmails not realized yet.')
 }
 
 const putEmail = async email => {

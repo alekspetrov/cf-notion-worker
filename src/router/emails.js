@@ -5,11 +5,13 @@ const getEmails = async () => {
 }
 
 const addEmail = async request => {
-  const jsonBody = JSON.stringify(await request.json())
-  const body = JSON.parse(jsonBody)
-  const res = await putEmail(body.email)
-
-  return res
+  try {
+    const jsonBody = JSON.stringify(await request.json())
+    const body = JSON.parse(jsonBody)
+    return await putEmail(body.email)
+  } catch (e) {
+    throw new Error('Fetch Table: ', e.message || e)
+  }
 }
 
 export { getEmails, addEmail }

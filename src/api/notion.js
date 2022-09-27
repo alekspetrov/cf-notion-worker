@@ -22,7 +22,7 @@ const fetchTable = async () => {
 
     return response.results
   } catch (e) {
-    throw Error('Fetch Table: ', e.message || e)
+    throw new Error('Fetch Table: ', e.message || e)
   }
 }
 
