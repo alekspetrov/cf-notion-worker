@@ -1,6 +1,5 @@
 import { Client } from '@notionhq/client'
 
-// const NOTION_API = 'https://api.notion.com/v1'
 const NOTION_DB = '7d773a91d3614c28a6292d2f8cc919cf'
 
 const notion = new Client({
