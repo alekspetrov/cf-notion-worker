@@ -6,7 +6,7 @@ const putEmail = async email => {
   const body = JSON.stringify({
     // eslint-disable-next-line no-undef
     api_key: OCTOPUS_TOKEN,
-    email_address: email,
+    email_address: email.trim(),
   })
 
   try {
@@ -21,9 +21,7 @@ const putEmail = async email => {
       },
     )
 
-    const jsonData = await res.json()
-
-    return jsonData
+    return res
   } catch (e) {
     throw Error('Fetch EmailOctopus Error: ', e.message || e)
   }
