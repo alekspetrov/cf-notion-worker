@@ -6,25 +6,35 @@ const putEmail = async email => {
   const body = JSON.stringify({
     // eslint-disable-next-line no-undef
     api_key: OCTOPUS_TOKEN,
-    email_address: email.trim(),
+    email_address: email,
   })
 
-  try {
-    const res = await fetch(
-      'https://emailoctopus.com/api/1.6/lists/a803337d-9581-11ec-9258-0241b9615763/contacts',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body,
+  // EmailOcropus returns statuses in the responses with code 200.
+  const res = await fetch(
+    'https://emailoctopus.com/api/1.6/lists/a803337d-9581-11ec-9258-0241b9615763/contacts',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+      body,
+    },
+  )
 
-    return await res.json()
-  } catch (error) {
-    throw Error('Octopus API Error', error.message || error)
+  // FIX: Fix with utility function checks for json or stringified json.
+
+  // This code covers EmailOctopus inconsistent api.
+  // If status 200 it returns json()
+  if (res.status === 200) {
+    return res
   }
+
+  // If status 409 it returns stringified json.
+  if (res.status === 409) {
+    return await res.json()
+  }
+
+  return res
 }
 
 export { fetchEmails, putEmail }

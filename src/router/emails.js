@@ -5,13 +5,9 @@ const getEmails = async () => {
 }
 
 const addEmail = async request => {
-  try {
-    const jsonBody = JSON.stringify(await request.json())
-    const body = JSON.parse(jsonBody)
-    return putEmail(body.email)
-  } catch (error) {
-    throw Error('Add email error', error.message || error)
-  }
+  const jsonBody = JSON.stringify(await request.json())
+  const body = JSON.parse(jsonBody)
+  return await putEmail(body.email)
 }
 
 export { getEmails, addEmail }
