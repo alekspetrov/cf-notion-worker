@@ -33,7 +33,7 @@ const fetchBlocks = async blockId => {
 
     return response.results
   } catch (e) {
-    throw Error('Fetch Table: ', e.message || e)
+    throw Error('Fetch Notion Error: ', e.message || e)
   }
 }
 

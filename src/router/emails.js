@@ -10,7 +10,7 @@ const addEmail = async request => {
     const body = JSON.parse(jsonBody)
     return await putEmail(body.email)
   } catch (e) {
-    throw new Error('Fetch Table: ', e.message || e)
+    throw new Error('Add Email Error : ', e.message || e)
   }
 }
 

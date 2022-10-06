@@ -11,19 +11,21 @@ const putEmail = async email => {
 
   try {
     const res = await fetch(
-      'https://emailoctopus.com/api/1.5/lists/a803337d-9581-11ec-9258-0241b9615763/contacts',
+      'https://emailoctopus.com/api/1.6/lists/a803337d-9581-11ec-9258-0241b9615763/contacts',
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: body,
+        body,
       },
     )
 
-    return res
-  } catch (error) {
-    throw Error('Can not add email to Octopus', error)
+    const jsonData = await res.json()
+
+    return jsonData
+  } catch (e) {
+    throw Error('Fetch EmailOctopus Error: ', e.message || e)
   }
 }
 
