@@ -21,7 +21,7 @@ const putEmail = async email => {
       },
     )
 
-    return await res
+    return res
   } catch (error) {
     throw Error('Can not add email to Octopus', error)
   }
