@@ -8,9 +8,9 @@ const addEmail = async request => {
   try {
     const jsonBody = JSON.stringify(await request.json())
     const body = JSON.parse(jsonBody)
-    return await putEmail(body.email)
-  } catch (e) {
-    throw new Error('Add Email Error : ', e.message || e)
+    return putEmail(body.email)
+  } catch (error) {
+    throw Error('Add email error', error.message || error)
   }
 }
 

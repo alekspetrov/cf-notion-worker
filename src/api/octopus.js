@@ -21,9 +21,9 @@ const putEmail = async email => {
       },
     )
 
-    return res
-  } catch (e) {
-    throw Error('Fetch EmailOctopus Error: ', e.message || e)
+    return await res.json()
+  } catch (error) {
+    throw Error('Octopus API Error', error.message || error)
   }
 }
 
