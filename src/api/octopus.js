@@ -34,7 +34,9 @@ const putEmail = async email => {
     return await res.json()
   }
 
-  return res
+  return new Response(null, {
+    status: res.status,
+  })
 }
 
 export { fetchEmails, putEmail }
