@@ -21,21 +21,9 @@ const putEmail = async email => {
     },
   )
 
-  // FIX: Fix with utility function checks for json or stringified json.
-
-  // This code covers EmailOctopus inconsistent api.
-  // If status 200 it returns json()
-  if (res.status === 200) {
-    return res
-  }
-
-  // If status 409 it returns stringified json.
-  if (res.status === 409) {
-    return await res.json()
-  }
-
   return new Response(null, {
     status: res.status,
+    error: res.error || null,
   })
 }
 
